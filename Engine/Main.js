@@ -4,10 +4,8 @@ let scene = new Map()
 
 function frame() {
     ctx.clearRect(0,0, canvas.width, canvas.height)
-    for (let [key, value] of scene.entries()) {
-        value.draw(ctx)
-        value.script.execute()
-        console.log(key)
+    for (let [name, obj] of scene.entries()) {
+        obj.update(ctx)
     } 
 
     setTimeout(frame, 20)  

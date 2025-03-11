@@ -17,7 +17,17 @@ class MoveRight extends Script {
     }
 }
 
+class MoveInCircle {
+    
+
+}
+
 let CoolRect = new Rectangle("CoolRect", 10,10,100,100,new Color(0,0,255))
+let CoolCircle = new Circle("CoolCircle", 200,100,40, fillColor = new Color(164, 214, 233))
+
+
+
+"rgb(164, 214, 233)"
 //CoolRect.addScript(MoveRight)
 
 
