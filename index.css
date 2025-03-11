@@ -1,3 +1,9 @@
 .something {
     color: rgb(164, 214, 233);
 }
+html, body, div, canvas {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block;
+    overflow: hidden;
+}

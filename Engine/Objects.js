@@ -5,13 +5,19 @@ class Object {
         this.x = x
         this.y = y
         this.script = Script.None
-
+        this.parent = null
     }
-    update(ctx) { 
-        this.script.execute();
+    update(ctx) {  this.script.execute(); }
+    setScript(script) { this.script = new script(this) }
+    getPosX() {
+        let x = this.x
+        if(this.parent) x += this.parent.x
+        return x
     }
-    addScript(script) {
-        this.script = new script(this)
+    getPosY() {
+        let y = this.y
+        if(this.parent) y += this.parent.y
+        return y
     }
 }
 class Sprite extends Object {
@@ -33,25 +39,30 @@ class Rectangle extends Sprite {
     }
     draw(ctx) {
         ctx.fillStyle = this.fillColor.css();
-        ctx.fillRect(this.x,this.y, this.width,this.height);
+        ctx.fillRect(this.getPosX(), this.getPosY(), this.width,this.height);
     }
+
 }
 class Circle extends Sprite {
-    constructor(name, x, y, radius, fillColor =  new Color(0,0,0), outlineColor = new Color(0,0,0), outlineSize = 0) {
+    constructor(name, x, y, radius, fillColor = new Color(0,0,0), outlineColor = new Color(0,0,0), outlineSize = 0) {
         super(name, x,y)
         this.radius = radius
         this.fillColor = fillColor
+        console.log(fillColor)
+        console.log(this.fillColor)
         this.outlineColor = outlineColor
         this.outlineSize = outlineSize
     }
     draw(ctx) {
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-        ctx.fillStyle = this.fillColor
+        ctx.arc(this.getPosX(), this.getPosY(), this.radius, 0, 2 * Math.PI);
+        ctx.fillStyle = this.fillColor.css()
         ctx.fill()
-        ctx.lineWidth = this.outlineSize
-        ctx.strokeStyle = this.outlineColor
-        ctx.stroke();
+        if(this.outlineSize > 0){
+            ctx.lineWidth = this.outlineSize
+            ctx.strokeStyle = this.outlineColor
+            ctx.stroke();
+        }
     }
 }
 
